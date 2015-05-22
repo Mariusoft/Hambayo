@@ -1,0 +1,21 @@
+<ion-view view-title="Purchase History">
+  <ion-nav-buttons side="right">
+      <button class="button button-positive" ng-click="ecalc()">
+        <i class="icon ion-calculator"></i>
+      </button>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="true">
+    <div class="item item-divider item-dark">
+      {{description}} -> {{serialNr}}
+    </div>
+    <ion-list>
+      <ion-item ng-repeat="purchase in history.amounts">
+        <span class="history_date">{{purchase.p_date}}</span><br />
+        <span class="history_amount">{{purchase.total_units}} units @ R {{purchase.total_cost}}</span><br />
+        <div class="item item-divider">
+          Token: <strong>{{purchase.token_data}}</strong>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

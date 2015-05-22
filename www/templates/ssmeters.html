@@ -1,0 +1,22 @@
+<ion-view view-title="Self Service Meters">
+  <ion-nav-buttons side="right">
+      <button class="button button-positive" ng-click="addmeter()">
+        <i class="icon ion-plus-round"></i>
+      </button>
+      <button class="button button-clear">
+        <i>&nbsp;&nbsp;&nbsp;</i>
+      </button>
+      <button class="button button-assertive" ng-click="removemeter()">
+        <i class="icon ion-minus-round"></i>
+      </button>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="true">
+    <ion-list>
+      <ion-item ng-repeat="meter in meters.ssmeters" href="#/app/ssmeters/{{meter.id}}/{{meter.address}}/{{meter.description}}">
+        {{meter.address}}<br />
+        {{meter.description}}<br />
+        {{meter.meter_type}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

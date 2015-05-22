@@ -1,0 +1,25 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Electricity Meter</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeMeterElect()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content overflow-scroll="true">
+    <form ng-submit="doAddEMeter(eMeterData)">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Description</span>
+          <input type="text" ng-model="eMeterData.description" name="description" id="description">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Serial Nr</span>
+          <input type="text" ng-model="eMeterData.serial" name="serial" id="serial">
+        </label>
+        <label class="item">
+          <button class="button button-block button-balanced" type="submit">Add</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

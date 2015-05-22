@@ -1,0 +1,57 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"wp-package\" value=\"DebugConsole\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"wp-package\" value=\"Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"wp-package\" value=\"InAppBrowser\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "Properties/WMAppManifest.xml": {
+                "parents": {
+                    "/Deployment/App/Capabilities": [
+                        {
+                            "xml": "<Capability Name=\"ID_CAP_IDENTITY_DEVICE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<Capability Name=\"ID_CAP_NETWORKING\" />",
+                            "count": 2
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "com.ionic.keyboard": {
+            "PACKAGE_NAME": "{390bada0-e911-11e4-b471-91f4c71c4623}"
+        },
+        "org.apache.cordova.console": {
+            "PACKAGE_NAME": "{390bada0-e911-11e4-b471-91f4c71c4623}"
+        },
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "{390bada0-e911-11e4-b471-91f4c71c4623}"
+        },
+        "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "{390bada0-e911-11e4-b471-91f4c71c4623}"
+        }
+    },
+    "dependent_plugins": {}
+}

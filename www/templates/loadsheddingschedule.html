@@ -1,0 +1,12 @@
+<ion-view view-title="STLM - Schedule">
+  <ion-content overflow-scroll="true">
+    <div class="card" ng-repeat="(key, value) in schedules.schedule | groupBy:'substation' | toArray:true | orderBy:'s_time'">
+      <div class="item item-divider item-assertive">
+        {{value[0].substation}}
+      </div>
+      <div class="item item-text-wrap" ng-repeat="schedule in value | orderBy:'message'">
+        {{schedule.message}}<br /> <i ng-show="schedule.substation!='none'" class="icon ion-clock"></i> {{schedule.s_time}} <i ng-show="schedule.substation!='none'" class="icon ion-arrow-right-c"></i> {{schedule.e_time}}
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

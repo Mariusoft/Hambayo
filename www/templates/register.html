@@ -1,0 +1,33 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Register new Login</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeRegister()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doRegister(loginData)">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Email address</span>
+          <input type="text" ng-model="loginData.username" placeholder="john@domain.com">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="text" ng-model="loginData.password">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Account No</span>
+          <input type="text" ng-model="loginData.account" placeholder="9876543X">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">E-service No</span>
+          <input type="text" ng-model="loginData.eservice" placeholder="1234567">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Register</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

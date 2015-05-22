@@ -1,0 +1,88 @@
+<ion-view view-title="Account Nr: {{accountNr}}">
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Month: {{accountFor}}
+          </div>
+          <select
+            ng-model="accountMonth"
+            ng-change="refresh(accountNr,accountMonth)"
+            ng-options="month.id as (month.month + ' ' + month.year)
+                        for month in accountDetails.detail_dates"
+
+            >
+            <option value="">-- Select month --</option>
+          </select>
+        </label>
+      </ion-item>
+      <ion-item class="ltgreen">
+        <div class="row" ng-repeat="item in accountDetails.heading">
+          <div class="col">
+            <div class="row">
+                <div class="col col-25"><h5><strong>Month</strong></h5></div>
+                <div class="col col-75"><h6>{{item.month}}</h6></div>
+            </div>
+            <div class="row">
+                <div class="col col-25"><h5><strong>Name</strong></h5></div>
+                <div class="col col-75"><h6>{{item.iname}}</h6></div>
+            </div>
+            <div class="row">
+                <div class="col col-25"><h5><strong>Address</strong></h5></div>
+                <div class="col col-75"><h6>{{item.streetname}} {{item.streetnumber}}</h6></div>
+            </div>
+            <div class="row">
+                <div class="col col-25"><h5><strong>Area</strong></h5></div>
+                <div class="col col-75"><h6>{{item.area}}</h6></div>
+            </div>
+            <div class="row">
+                <div class="col col-25"><h5><strong>Value</strong></h5></div>
+                <div class="col col-75"><h6>{{item.value | currency:"R ":0}}</h6></div>
+            </div>
+            <div class="row">
+                <div class="col col-25"><h5><strong>Due</strong></h5></div>
+                <div class="col col-75"><h6>{{item.total | currency:"R "}}</h6></div>
+            </div>
+            <div class="row">
+                <div class="col col-25"><h5><strong>Due date</strong></h5></div>
+                <div class="col col-75"><h6>{{item.duedate}}</h6></div>
+            </div>
+            <div class="row">
+                <div class="col col-25"><h6><strong>120 Days</strong></h6></div>
+                <div class="col col-25"><h6><strong>90 Days</strong></h6></div>
+                <div class="col col-25"><h6><strong>60 Days</strong></h6></div>
+                <div class="col col-25"><h6><strong>30 Days</strong></h6></div>
+
+            </div>
+            <div class="row">
+                <div class="col col-25"><h5><strong>{{item.h120}}</strong></h5></div>
+                <div class="col col-25"><h5><strong>{{item.h90}}</strong></h5></div>
+                <div class="col col-25"><h5><strong>{{item.h60}}</strong></h5></div>
+                <div class="col col-25"><h5><strong>{{item.h30}}</strong></h5></div>
+
+            </div>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <div class="col col-66"><h5><strong>Description</strong></h5></div>
+              <div class="col text-right"><h5><strong>Levy</strong></h5></div>
+              <div class="col text-right"><h5><strong>Amount</strong></h5></div>
+            </div>
+
+            <div ng-class-odd="'row oddAccountDetail'" ng-class-even="'row evenAccountDetail'" ng-repeat="detail in accountDetails.detail_items">
+                <div class="col col-66"><h6>{{detail.description}}</h6></div>
+                <div class="col text-right"><h6>{{detail.levy}}</h6></div>
+                <div class="col text-right"><h6>{{detail.amount}}</h6></div>
+                <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

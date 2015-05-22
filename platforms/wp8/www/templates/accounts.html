@@ -1,0 +1,11 @@
+<ion-view view-title="STLM - Accounts">
+  <ion-content overflow-scroll="true">
+    <ion-list>
+      <ion-item ng-repeat="account in accounts.accounts" href="#/app/accountdetail/{{account.accno}}/0">
+        {{account.accno}}<br />
+        {{account.streetaddress}}<br />
+        {{account.invoicename}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,21 @@
+<ion-view view-title="Electricity Meters">
+  <ion-nav-buttons side="right">
+      <button class="button button-positive" ng-click="addmeter()">
+        <i class="icon ion-plus-round"></i>
+      </button>
+      <button class="button button-clear">
+        <i>&nbsp;&nbsp;&nbsp;</i>
+      </button>
+      <button class="button button-assertive" ng-click="removemeter()">
+        <i class="icon ion-minus-round"></i>
+      </button>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="true">
+    <ion-list>
+      <ion-item ng-repeat="meter in meters.emeters" href="#/app/emeterhistory/{{meter.serial}}/{{meter.description}}">
+        {{meter.description}}<br />
+        {{meter.serial}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

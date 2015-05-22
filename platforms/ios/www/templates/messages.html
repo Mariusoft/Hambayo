@@ -1,0 +1,15 @@
+<ion-view view-title="STLM - Messages">
+  <ion-content overflow-scroll="true">
+    <div class="card" ng-repeat="message in messages.messages">
+      <div class="item item-divider {{message.class}}">
+        {{message.department}}
+      </div>
+      <div class="item item-text-wrap">
+        {{message.message}}
+      </div>
+      <div class="item item-divider">
+        {{message.timesent}}
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,18 @@
+<ion-view view-title="STLM - RFQ">
+  <ion-content overflow-scroll="true">
+    <div class="card" ng-repeat="quotation in quotations.quotations">
+      <div class="item item-divider item-dark lightDownload">
+        {{quotation.quote_nr}}
+        <a  ng-show="quotation.quote_nr != 'none'" class="item-icon-right" href="http://stlm.gov.za/Quotations/{{quotation.quote_nr}}.pdf" target="_blank">
+          <i class="icon ion-android-download"></i>
+        </a>
+      </div>
+      <div class="item item-text-wrap">
+        {{quotation.description}} - {{quotation.label}}
+      </div>
+      <div class="item item-divider">
+        {{quotation.closing_date}}
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

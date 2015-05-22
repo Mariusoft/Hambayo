@@ -1,0 +1,12 @@
+<ion-view view-title="STLM - IDP">
+  <ion-content overflow-scroll="true">
+    <div class="card" ng-repeat="(key, value) in projects.projects|groupBy:'ward'">
+      <div class="item item-divider item-assertive">
+        Municipal Ward {{key}}
+      </div>
+      <div class="item item-text-wrap" ng-repeat="info in value">
+        {{info.priority}}. {{info.need}}
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

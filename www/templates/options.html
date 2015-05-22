@@ -1,0 +1,56 @@
+<ion-view cache-view="false" view-title="STLM Mobile App">
+  <ion-nav-buttons side="right">
+      <button class="button button-positive" ng-click="login()">
+        <i ng-show="stat=='auth_error' || stat.login=='auth_error'" class="icon ion-unlocked"></i>
+        <i ng-show="stat=='logged_in' || stat.login=='logged_in'" class="icon ion-locked"></i>
+      </button>
+      <button class="button {{shedding_class.class}}" ng-click="schedule({{shedding_class.status}})">
+        <i class="icon ion-ios-lightbulb"></i>
+      </button>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="true">
+    <ion-list>
+
+      <ion-item ng-show="stat=='logged_in' || stat.login=='logged_in'" ng-repeat="login in loginOptions" href="#/app/optionlist/{{login.id}}">
+        <div class="col">
+          <div class="row">
+            <div class="col col-15">
+              <img ng-show="login.icon" src="img/{{login.icon}}">
+            </div>
+            <div class="col col-75">
+                {{login.title}}
+            </div>
+              <div class="col col-10 ">
+                <div class="row">
+                  <div class="text-center {{login.class}}">
+                    <span ng-show="login.title!='Quotations' && login.title!='Tenders'">{{login.note}}</span>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item ng-repeat="option in optionList" href="#/app/optionlist/{{option.id}}">
+        <div class="col">
+          <div class="row">
+            <div class="col col-15">
+              <img ng-show="option.icon" src="img/{{option.icon}}">
+            </div>
+            <div class="col col-75">
+                {{option.title}}
+            </div>
+              <div class="col col-10 ">
+                <div class="row">
+                  <div class="text-center {{option.class}}">
+                    <span ng-show="option.title!='Quotations' && option.title!='Tenders'">{{option.note}}</span>
+                    <span ng-show="option.title=='Quotations'">{{shedding_class.quotations}}</span>
+                    <span ng-show="option.title=='Tenders'">{{shedding_class.tenders}}</span>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

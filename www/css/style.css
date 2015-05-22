@@ -1,0 +1,27 @@
+/* Empty. Add your own CSS if you like */
+.ltgreen {
+  background-color: #d6d9d3;
+}
+.oddAccountDetail{
+  background-color:#d6d9d3;
+}
+.evenAccountDetail{
+  background-color:#b1c8b8;
+}
+.lightDownload a:link{
+  color:#ffffff;
+}
+.lightDownload a:visited{
+  color:#ffffff;
+}
+.lightDownload a:hover{
+  color:#ffffff;
+}
+
+/*meter history */
+.history_date{
+  color : #C78514;
+}
+.history_amount{
+  color : #BE0402;
+}

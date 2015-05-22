@@ -1,0 +1,49 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Purchase Calculator</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeMeterElect()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doCalc(eMeterData)">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Total amount of purchases this month</span>
+          <input type="text" ng-model="eMeterData.prev_amount" name="prev_amount" id="prev_amount">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Amount of next purchase</span>
+          <input type="text" ng-model="eMeterData.next_amount" name="next_amount" id="next_amount">
+        </label>
+        <label class="item">
+          <button class="button button-block button-balanced" type="submit">Add</button>
+        </label>
+      </div>
+      <div class="list">
+        <label class="item item-input">
+          Current totals
+        </label>
+        <label class="item item-input">
+          Block tariff position
+        </label>
+        <label class="item item-input">
+          Units remaining in block
+        </label>
+        <label class="item item-input">
+          Units you will receive
+        </label>
+        <label class="item item-input">
+          Totals after purchase
+        </label>
+        <label class="item item-input">
+          Block tariff position
+        </label>
+        <label class="item item-input">
+          Units remaining in block
+        </label>
+
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

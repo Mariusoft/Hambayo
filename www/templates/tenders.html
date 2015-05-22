@@ -1,0 +1,18 @@
+<ion-view view-title="STLM - RFT">
+  <ion-content overflow-scroll="true">
+    <div class="card" ng-repeat="tender in tenders.tenders">
+      <div class="item item-divider item-dark lightDownload">
+        {{tender.tender_nr}}
+        <a ng-show="tender.tender_nr != 'none'" class="item-icon-right" href="http://stlm.gov.za/Tenders/{{tender.tender_nr}}.pdf" target="_blank">
+          <i class="icon ion-android-download"></i>
+        </a>
+      </div>
+      <div class="item item-text-wrap">
+        {{tender.description}}
+      </div>
+      <div class="item item-divider">
+        {{tender.closing_date}}
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

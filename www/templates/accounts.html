@@ -1,0 +1,23 @@
+<ion-view view-title="STLM - Accounts">
+  <ion-nav-buttons side="right">
+      <button class="button button-positive" ng-click="addAccount()">
+        <i class="icon ion-plus-round"></i>
+      </button>
+      <button class="button button-clear">
+        <i>&nbsp;&nbsp;&nbsp;</i>
+      </button>
+      <button class="button button-assertive" ng-click="removeAccount()">
+        <i class="icon ion-minus-round"></i>
+      </button>
+  </ion-nav-buttons>
+
+  <ion-content overflow-scroll="true">
+    <ion-list>
+      <ion-item ng-repeat="account in accounts.accounts" href="#/app/accountdetail/{{account.accno}}/0">
+        {{account.accno}}<br />
+        {{account.streetaddress}}<br />
+        {{account.invoicename}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
