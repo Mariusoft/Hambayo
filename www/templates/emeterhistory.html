@@ -10,7 +10,8 @@
     </div>
     <ion-list>
       <ion-item ng-repeat="purchase in history.amounts">
-        <span class="history_date">{{purchase.p_date}}</span><br />
+        <span class="history_date">{{purchase.p_date}}<br />
+        {{purchase.phase}}</span><br />
         <span class="history_amount">{{purchase.total_units}} units @ R {{purchase.total_cost}}</span><br />
         <div class="item item-divider">
           Token: <strong>{{purchase.token_data}}</strong>

@@ -6,23 +6,27 @@
     </div>
   </ion-header-bar>
   <ion-content>
-    <form ng-submit="doRegister(loginData)">
+    <form name="myForm" ng-submit="doRegister(loginData)">
       <div class="list">
         <label class="item item-input">
           <span class="input-label">Email address</span>
-          <input type="text" ng-model="loginData.username" placeholder="john@domain.com">
+          <input name="email" type="email" ng-model="loginData.username" placeholder="john@domain.com" required autoFocus>
+            <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+              <span ng-show="myForm.email.$error.required">Email is required.</span>
+              <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+            </span>
         </label>
         <label class="item item-input">
           <span class="input-label">Password</span>
-          <input type="text" ng-model="loginData.password">
+          <input type="text" ng-model="loginData.password" required>
         </label>
         <label class="item item-input">
           <span class="input-label">Account No</span>
-          <input type="text" ng-model="loginData.account" placeholder="9876543X">
+          <input type="text" ng-model="loginData.account" placeholder="9876543X" required>
         </label>
         <label class="item item-input">
           <span class="input-label">E-service No</span>
-          <input type="text" ng-model="loginData.eservice" placeholder="1234567">
+          <input type="text" ng-model="loginData.eservice" placeholder="1234567" required>
         </label>
         <label class="item">
           <button class="button button-block button-positive" type="submit">Register</button>

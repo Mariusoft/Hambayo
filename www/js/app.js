@@ -20,6 +20,17 @@ angular.module('hambayo', ['ionic', 'hambayo.controllers', 'ngResource', 'angula
   });
 })
 
+.directive('autoFocus', function($timeout) {
+    return {
+        restrict: 'AC',
+        link: function(_scope, _element) {
+            $timeout(function(){
+                _element[0].focus();
+            }, 0);
+        }
+    };
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
@@ -84,7 +95,7 @@ angular.module('hambayo', ['ionic', 'hambayo.controllers', 'ngResource', 'angula
       }
     })
     .state('app.schedule', {
-      url: "/schedule",
+      url: "/schedule:link",
       views: {
         'menuContent': {
           templateUrl: "templates/loadsheddingschedule.html",

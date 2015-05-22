@@ -5,7 +5,7 @@
         {{value[0].substation}}
       </div>
       <div class="item item-text-wrap" ng-repeat="schedule in value | orderBy:'message'">
-        {{schedule.message}}<br /> <i ng-show="schedule.substation!='none'" class="icon ion-clock"></i> {{schedule.s_time}} <i ng-show="schedule.substation!='none'" class="icon ion-arrow-right-c"></i> {{schedule.e_time}}
+        {{schedule.message}}
       </div>
     </div>
   </ion-content>

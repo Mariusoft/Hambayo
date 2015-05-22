@@ -149,7 +149,9 @@ angular.module('hambayo.controllers', [])
 
 })
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, LoginData, loginRegisterData) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, LoginData, loginRegisterData, $ionicLoading) {
+
+
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -251,7 +253,14 @@ angular.module('hambayo.controllers', [])
   };
 })
 
-.controller('eMeterCtrl', function($scope, $ionicModal, $timeout, eMeterData, $rootScope) {
+.controller('eMeterCtrl', function($scope, $ionicModal, $timeout, eMeterData, $rootScope, $ionicLoading) {
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
 
   $scope.name = 'eMeterCtrl';
 
@@ -282,11 +291,13 @@ angular.module('hambayo.controllers', [])
 
   eMeterData.getMeters().then(function(meters){
     $scope.meters = meters;
+    $ionicLoading.hide();
   });
 
 
   $scope.$on('handleEmeterData', function(events, meters){
     $scope.meters = meters;
+    $ionicLoading.hide();
   });
 
   $scope.doAddEMeter = function(meterData){
@@ -306,7 +317,14 @@ angular.module('hambayo.controllers', [])
 
 })
 
-.controller('AccountsCtrl', function($scope, $ionicModal, $stateParams, $rootScope, accountsData){
+.controller('AccountsCtrl', function($scope, $ionicModal, $stateParams, $rootScope, accountsData, $ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
 
   $scope.name = 'AccountsCtrl';
 
@@ -340,10 +358,12 @@ angular.module('hambayo.controllers', [])
 
   accountsData.getAccounts().then(function(accounts){
     $scope.accounts = accounts;
+    $ionicLoading.hide();
   });
 
   $scope.$on('handleAccountData', function(events, accounts){
     $scope.accounts = accounts;
+    $ionicLoading.hide();
   });
 
   $scope.doAddAccount = function(accountData){
@@ -364,7 +384,14 @@ angular.module('hambayo.controllers', [])
 })
 
 
-.controller('ssEreadingsCtrl', function($scope, $ionicModal, $timeout, sseMeterData, $rootScope) {
+.controller('ssEreadingsCtrl', function($scope, $ionicModal, $timeout, sseMeterData, $rootScope, $ionicLoading) {
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
 
   $scope.name = 'ssEreadingsCtrl';
 
@@ -395,11 +422,13 @@ angular.module('hambayo.controllers', [])
 
   sseMeterData.getMeters().then(function(meters){
     $scope.meters = meters;
+    $ionicLoading.hide();
   });
 
 
   $scope.$on('handleSSEmeterData', function(events, meters){
     $scope.meters = meters;
+    $ionicLoading.hide();
   });
 
   $scope.doAddEMeter = function(meterData){
@@ -419,18 +448,32 @@ angular.module('hambayo.controllers', [])
 
 })
 
-.controller('OptionlistCtrl', function($scope, LoginData, InitialData, $rootScope, $state) {
+.controller('OptionlistCtrl', function($scope, LoginData, InitialData, $rootScope, $state, $stateParams, $ionicLoading) {
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
+
   $scope.stat='auth_error';
   if(typeof $rootScope.stat !== 'undefined'){
     $scope.stat=$rootScope.stat;
   }
   InitialData.get(function(data){
     $scope.shedding_class = data;
+    $ionicLoading.hide();
   })
-  $rootScope.$on('loginStatus', function(event, data) { $scope.stat=data; });
+  $rootScope.$on('loginStatus', function(event, data) {
+    $scope.stat=data;
+    $ionicLoading.hide();
+  });
 
-  $scope.schedule = function(){
-    $state.go("app.schedule");
+  $scope.schedule = function(status){
+    console.log('Status', status);
+    $state.go("app.schedule",{ 'link':status});
+
   };
 
   $scope.loginOptions = [
@@ -464,94 +507,159 @@ angular.module('hambayo.controllers', [])
 
 })
 
-.controller('eEeterHistoryCtrl', function($scope, $resource, $stateParams){
+.controller('eEeterHistoryCtrl', function($scope, $resource, $stateParams, $ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
   var ppHistoryAPI = $resource("https://www.stlm-online.co.za/json/finance/accounts/last_five_elec_purchases.php?meternumber=" + $stateParams.serialNr,
   { callback: "JSON_CALLBACK" },
   { get: { method: "GET" }});
   $scope.serialNr = $stateParams.serialNr;
   $scope.description=$stateParams.description;
   $scope.history=ppHistoryAPI.get({});
-  console.log($scope.history);
+  $ionicLoading.hide();
 
 })
 
-.controller('DirectoryCtrl', function($scope, $resource, $stateParams){
+.controller('DirectoryCtrl', function($scope, $resource, $stateParams, $ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
+
   $scope.directoryAPI = $resource("http://www.stlm.gov.za/json/listDirectory.php",
   { callback: "JSON_CALLBACK" },
   { get: { method: "GET" }});
 
   $scope.directory=$scope.directoryAPI.get({});
-  console.log($scope.directory);
+  $ionicLoading.hide();
+
 
 })
 
-.controller('ScheduleCtrl', function($scope, $resource, $stateParams){
-  $scope.scheduleAPI = $resource("http://www.stlm.gov.za/json/listSchedule.php",
+.controller('ScheduleCtrl', function($scope, $resource, $stateParams, $ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
+  $scope.scheduleAPI = $resource("http://www.stlm.gov.za/json/listSchedule.php?link=" + $stateParams.link,
   { callback: "JSON_CALLBACK" },
   { get: { method: "GET" }});
 
   $scope.schedules=$scope.scheduleAPI.get({});
-  console.log($scope.schedules);
+  $ionicLoading.hide();
 
 })
 
-.controller('TendersCtrl', function($scope, $resource, $stateParams){
+.controller('TendersCtrl', function($scope, $resource, $stateParams, $ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
   $scope.tenderAPI = $resource("http://www.stlm.gov.za/json/listTenders.php",
   { callback: "JSON_CALLBACK" },
   { get: { method: "GET" }});
 
   $scope.tenders=$scope.tenderAPI.get({});
-  console.log($scope.tenders);
+  $ionicLoading.hide();
 
 })
 
-.controller('QuotationsCtrl', function($scope, $resource, $stateParams){
+.controller('QuotationsCtrl', function($scope, $resource, $stateParams, $ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
   var quotationAPI = $resource("http://www.stlm.gov.za/json/listQuotations.php",
   { callback: "JSON_CALLBACK" },
   { get: { method: "GET"}});
 
   $scope.quotations=quotationAPI.get({});
-  console.log($scope.quotations);
+  $ionicLoading.hide();
 
 })
 
-.controller('MediaCtrl', function($scope, $resource, $stateParams){
+.controller('MediaCtrl', function($scope, $resource, $stateParams, $ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
   $scope.mediaAPI = $resource("http://www.stlm.gov.za/json/listMedia.php",
   { callback: "JSON_CALLBACK" },
   { get: { method: "GET" }});
 
   $scope.mediaItems=$scope.mediaAPI.get({});
-  console.log($scope.mediaItems);
+  $ionicLoading.hide();
 
 })
 
-.controller('NoticesCtrl', function($scope, $resource, $stateParams){
+.controller('NoticesCtrl', function($scope, $resource, $stateParams, $ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
   $scope.noticeAPI = $resource("http://www.stlm.gov.za/json/listNotices.php",
   { callback: "JSON_CALLBACK" },
   { get: { method: "GET" }});
 
   $scope.notices=$scope.noticeAPI.get({});
-  console.log($scope.notices);
+  $ionicLoading.hide();
 
 })
 
-.controller('ProjectsCtrl', function($scope, $resource, $stateParams){
+.controller('ProjectsCtrl', function($scope, $resource, $stateParams, $ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
   $scope.projectAPI = $resource("http://www.stlm.gov.za/json/listProjects.php",
   { callback: "JSON_CALLBACK" },
   { get: { method: "GET" }});
 
   $scope.projects=$scope.projectAPI.get({});
-  console.log($scope.projects);
+  $ionicLoading.hide();
 
 })
 
-.controller('MessagesCtrl', function($scope, $resource, $stateParams){
+.controller('MessagesCtrl', function($scope, $resource, $stateParams, $ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
   $scope.messageAPI = $resource("http://stlm-online.co.za/json/sms/list.php",
   { callback: "JSON_CALLBACK" },
   { get: { method: "GET" }});
 
   $scope.messages=$scope.messageAPI.get({});
-  console.log($scope.messages);
+  $ionicLoading.hide();
 
 })
 
@@ -865,7 +973,14 @@ totalAmountPurchase = parseFloat(prevAmountPurchase + nextAmountPurchase);
   }
 })
 
-.controller('AccountDetailCtrl', function($scope, $resource, $stateParams){
+.controller('AccountDetailCtrl', function($scope, $resource, $stateParams, $ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
   var self = this;
   $scope.accountNr=$stateParams.accountNr;
   $scope.accountMonth=$stateParams.accountMonth;
@@ -875,7 +990,7 @@ totalAmountPurchase = parseFloat(prevAmountPurchase + nextAmountPurchase);
   { get: { method: "JSONP" }});
 
   $scope.accountDetails=$scope.accountDetailsAPI.get({accno:$scope.accountNr, monthnr:$scope.accountMonth});
-  console.log($scope.accountDetails);
+  $ionicLoading.hide();
 
 $scope.refresh=function(acc,num){
   loadRemoteData(acc,num);

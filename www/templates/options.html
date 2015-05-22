@@ -1,10 +1,10 @@
-<ion-view cache-view="false" view-title="STLM Mobile App">
+<ion-view cache-view="false" view-title="STLM Basic">
   <ion-nav-buttons side="right">
       <button class="button button-positive" ng-click="login()">
         <i ng-show="stat=='auth_error' || stat.login=='auth_error'" class="icon ion-unlocked"></i>
         <i ng-show="stat=='logged_in' || stat.login=='logged_in'" class="icon ion-locked"></i>
       </button>
-      <button class="button {{shedding_class.class}}" ng-click="schedule({{shedding_class.status}})">
+      <button class="button {{shedding_class.class}}" ng-click="schedule(shedding_class.status)">
         <i class="icon ion-ios-lightbulb"></i>
       </button>
   </ion-nav-buttons>
