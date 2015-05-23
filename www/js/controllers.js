@@ -128,20 +128,56 @@ angular.module('hambayo.controllers', [])
     removeMeter: function(meter_id){
       return $http.get('https://www.stlm-online.co.za/json/finance/self_service/removeMeter.php?user_id=' + $rootScope.uid + "&meter_id=" + meter_id).then(function(response){
         meters = response.data;
-        $rootScope.$broadcast('handleEmeterData', meters);
+        $rootScope.$broadcast('handleSSEmeterData', meters);
         return meters;
       })
     },
     saveMeters: function($params){
       return $http({
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        url: 'https://www.stlm-online.co.za/json/finance/self_service/addMeters.php',
+        url: 'https://www.stlm-online.co.za/json/finance/self_service/addMeter.php',
         method: "POST",
         data: $params,
       })
         .success(function(addData){
           meters = addData;
-          $rootScope.$broadcast('handleEmeterData', meters);
+          $rootScope.$broadcast('handleSSEmeterData', meters);
+        });
+    }
+  }
+
+
+})
+
+.factory('ssMeterReadingData', function($http, $rootScope) {
+
+  var readings = [];
+
+  return {
+    getReadings: function(meter_id){
+      return $http.get('https://www.stlm-online.co.za/json/finance/self_service/listReadings.php?user_id=' + $rootScope.uid + '&meter_id=' + meter_id).then(function(response){
+        readings = response.data;
+        $rootScope.$broadcast('handleSSReadingData', readings);
+        return readings;
+      })
+    },
+    removeReading: function(meter_id,reading_id){
+      return $http.get('https://www.stlm-online.co.za/json/finance/self_service/removeReading.php?user_id=' + $rootScope.uid + "&meter_id=" + meter_id + "&reading_id=" + reading_id).then(function(response){
+        readings = response.data;
+        $rootScope.$broadcast('handleSSReadingData', readings);
+        return readings;
+      })
+    },
+    saveReading: function($params){
+      return $http({
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        url: 'https://www.stlm-online.co.za/json/finance/self_service/addReading.php',
+        method: "POST",
+        data: $params,
+      })
+        .success(function(addData){
+          readings = addData;
+          $rootScope.$broadcast('handleSSReadingData', readings);
         });
     }
   }
@@ -192,8 +228,8 @@ angular.module('hambayo.controllers', [])
   // Open the login modal
   $scope.login = function() {
     $scope.modal.show();
-    //$scope.loginData.username="mariusoft";
-    //$scope.loginData.password="panda11";
+    $scope.loginData.username="mariusoft";
+    $scope.loginData.password="panda11";
   };
 
   // Open the SMS options modal
@@ -235,9 +271,6 @@ angular.module('hambayo.controllers', [])
   $scope.doLogin = function() {
     $rootScope.u=$scope.loginData.username;
     $rootScope.p=$scope.loginData.password;
-    console.log('Doing login', $scope.loginData);
-    console.log('User', $rootScope.u);
-    console.log('Pass', $rootScope.p);
 
     LoginData.get(function(data){
         $scope.stat=data;
@@ -383,7 +416,6 @@ angular.module('hambayo.controllers', [])
 
 })
 
-
 .controller('ssEreadingsCtrl', function($scope, $ionicModal, $timeout, sseMeterData, $rootScope, $ionicLoading) {
   $ionicLoading.show({
     content: 'Loading',
@@ -409,6 +441,9 @@ angular.module('hambayo.controllers', [])
 
   $scope.closeMeterElect = function() {
       $scope.modal.hide();
+    };
+
+  $scope.closeRemoveMeterElect = function() {
       $scope.modalr.hide();
     };
 
@@ -431,19 +466,95 @@ angular.module('hambayo.controllers', [])
     $ionicLoading.hide();
   });
 
-  $scope.doAddEMeter = function(meterData){
+  $scope.doAddssMeter = function(meterData){
     $params = ({params:{
       "description":meterData.description,
-      "serial":meterData.serial,
+      "address":meterData.address,
+      "comment":meterData.comment,
+      "meter_type":meterData.meter_type,
       "user_id":$rootScope.uid
     }})
-    eMeterData.saveMeters($params);
+    sseMeterData.saveMeters($params);
     $scope.closeMeterElect();
   }
 
   $scope.pushNotificationChange = function(id){
-    eMeterData.removeMeter(id);
+    sseMeterData.removeMeter(id);
     console.log("Meter ID", id);
+  }
+
+})
+
+.controller('ssMeterReadingsCtrl', function($scope, $ionicModal, $timeout, ssMeterReadingData, $rootScope, $ionicLoading, $stateParams) {
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
+
+  $scope.name = 'ssMeterReadingsCtrl';
+  $scope.address=$stateParams.address;
+  $scope.description=$stateParams.description;
+  $scope.meter_type=$stateParams.meter_type;
+  $scope.meter_id=$stateParams.meter_id;
+
+  $ionicModal.fromTemplateUrl('templates/ssmeterreadingelect.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+
+  $ionicModal.fromTemplateUrl('templates/ssmeterreadingelectremove.html', {
+      scope: $scope
+    }).then(function(modalr) {
+      $scope.modalr = modalr;
+    });
+
+  $scope.closeMeterElect = function() {
+      $scope.modal.hide();
+    };
+
+  $scope.closeRemoveMeterElect = function() {
+      $scope.modalr.hide();
+    };
+
+  $scope.addreading = function() {
+      $scope.modal.show();
+    };
+
+  $scope.removereading = function() {
+      $scope.modalr.show();
+    };
+
+  ssMeterReadingData.getReadings($stateParams.meter_id).then(function(readings){
+    $scope.readings = readings;
+    $ionicLoading.hide();
+  });
+
+  $scope.$on('handleSSReadingData', function(events, readings){
+    $scope.readings = readings;
+    $ionicLoading.hide();
+  });
+
+  $scope.doAddReading = function(readingsData){
+    $params = ({params:{
+      "date_read":readingsData.date_read,
+      "reading":readingsData.reading,
+      "comment":readingsData.comment,
+      "address":$scope.address,
+      "description":$scope.description,
+      "meter_type":$scope.meter_type,
+      "meter_id":$scope.meter_id,
+      "user_id":$rootScope.uid
+    }})
+    ssMeterReadingData.saveReading($params);
+    $scope.closeMeterElect();
+  }
+
+  $scope.pushNotificationChange = function(id){
+    ssMeterReadingData.removeReading($scope.meter_id,id);
   }
 
 })
@@ -471,7 +582,6 @@ angular.module('hambayo.controllers', [])
   });
 
   $scope.schedule = function(status){
-    console.log('Status', status);
     $state.go("app.schedule",{ 'link':status});
 
   };
@@ -490,8 +600,7 @@ angular.module('hambayo.controllers', [])
     { title: 'Tenders', id: 'tenders', class: 'badge badge-assertive',icon: 'tenders_icon.png' },
     { title: 'Media Releases', id: 'media',icon: 'media_icon.png' },
     { title: 'Notices', id: 'notices',icon: 'notices_icon.png' },
-    { title: 'IDP Needs', id: 'projects',icon: 'projects_icon.png' },
-    { title: 'Tariffs', id: 'tariffs',icon: 'tariffs_icon.png' }
+    { title: 'IDP Needs', id: 'projects',icon: 'projects_icon.png' }
 
   ];
 

@@ -9,17 +9,20 @@
     <form ng-submit="doLogin()">
       <div class="list">
         <label class="item item-input">
-          <span class="input-label">Username</span>
-          <input type="text" ng-model="loginData.username">
+          <span class="input-label">Username / Email</span>
+          <span class="formtextinput"><input type="text" ng-model="loginData.username" autoFocus></span>
         </label>
         <label class="item item-input">
           <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
+          <span class="formtextinput"><input type="password" ng-model="loginData.password"></span>
         </label>
         <label class="item">
           <button class="button button-block button-positive" type="submit">Log in</button>
         </label>
       </div>
     </form>
+    <div class="buttons">
+      <button class="button button-block button-assertive" ng-click="openRegister()">Register</button>
+    </div>
   </ion-content>
 </ion-modal-view>

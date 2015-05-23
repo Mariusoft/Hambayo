@@ -34,7 +34,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Resources;
 
 
-namespace com.ionicframework.hambayo248893
+namespace za.co.msft.hambayo248893
 {
     public partial class MainPage : PhoneApplicationPage
     {

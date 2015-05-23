@@ -17,3 +17,14 @@
 .lightDownload a:hover{
   color:#ffffff;
 }
+
+/*meter history */
+.history_date{
+  color : #C78514;
+}
+.history_amount{
+  color : #BE0402;
+}
+.formtextinput {
+	background-color: #EEE;
+}

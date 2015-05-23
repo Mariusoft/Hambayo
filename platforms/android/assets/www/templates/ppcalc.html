@@ -1,0 +1,172 @@
+<ion-view view-title="Calculator">
+  <ion-content>
+	<div class="row text-center">
+    <h3>March 2015 Pre-Paid Electricity Purchase History</h3>
+
+    </div>
+    <!-- Meter -->
+	<div class="form-group">
+      <label for="meter">Select meter:</label>
+       <select class="form-control" id="meter">
+        <option>Meter 1</option>
+        <option>Meter 2</option>
+        <option>Meter 3</option>
+        <option>Meter 4</option>
+      </select>
+  </div>
+  <!-- Services -->
+
+  <div class="form-group">
+      <label for="service">Type of service:</label>
+       <select class="form-control" id="service">
+        <option>Residential</option>
+        <option>Residential Indigent</option>
+        <option>Residential Lifeline</option>
+        <option>Business</option>
+        <option>Industrial</option>
+      </select>
+  </div>
+    <!-- Purchased -->
+    <div class="row">
+    	<div class="form-group">
+          <label for="prevAmountPurchase">Total rand value purchased this month:</label>
+          <input type="number" class="form-control" id="prevAmountPurchase" ng-model="prevAmountPurchase" ng-change="update()" />
+      </div>
+	</div>
+	<!-- Next Purchased -->
+	<div class="row">
+    	<div class="form-group">
+          <label for="nextAmountPurchase">Next purchase amount:</label>
+          <input type="number" class="form-control" id="nextAmountPurchase" ng-model="nextAmountPurchase" ng-change="update()"/>
+      </div>
+	</div>
+    <!-- Calculate and History
+  <div class="row">
+    	<div>
+        <a href="#/elecCalc/#purchases" class="button button-positive button-left">Purchases</a>
+				<a href="#/elecCalc/#history" class="btn btn-info pull-left">History</a>
+        </div>
+        <div>
+        <a href="#distribution" class="button button-positive button-right">Calculate Units</a>
+        </div>
+    </div>-->
+	<!-- Distribution
+		<table id="distribution" width="500" border="0" cellspacing="1" cellpadding="1" class="table">
+      <tr>
+        <td colspan="5"><strong>Distribution of units</strong></td>
+        </tr>
+      <tr>
+        <td width="67">&nbsp;</td>
+        <td colspan="2" align="center"><strong>Previous purchase</strong></td>
+        <td colspan="2" align="center"><strong>Next purchase</strong></td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td width="104" align="center"><strong>Units</strong></td>
+        <td width="101" align="center"><strong>Amount</strong></td>
+        <td width="96" align="center"><strong>Units</strong></td>
+        <td width="104" align="center"><strong>Amount</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Block 1</strong></td>
+        <td align="center">{{b1pu}}</td>
+        <td align="center">{{b1pa}}</td>
+        <td align="center">{{b1nu}}</td>
+        <td align="center">{{b1na}}</td>
+      </tr>
+      <tr>
+        <td><strong>Block 2</strong></td>
+        <td align="center">{{b2pu}}</td>
+        <td align="center">{{b2pa}}</td>
+        <td align="center">{{b2nu}}</td>
+        <td align="center">{{b2na}}</td>
+      </tr>
+      <tr>
+        <td><strong>Block 3</strong></td>
+        <td align="center">{{b3pu}}</td>
+        <td align="center">{{b3pa}}</td>
+        <td align="center">{{b3nu}}</td>
+        <td align="center">{{b3na}}</td>
+      </tr>
+      <tr>
+        <td><strong>Block 4</strong></td>
+        <td align="center">{{b4pu}}</td>
+        <td align="center">{{b4pa}}</td>
+        <td align="center">{{b4nu}}</td>
+        <td align="center">{{b4na}}</td>
+      </tr>
+      <tr>
+        <td><strong>TOTALS</strong></td>
+        <td align="center">{{tpu}}</td>
+        <td align="center">{{tpa}}</td>
+        <td align="center">{{tnu}}</td>
+        <td align="center">{{tna}}</td>
+      </tr>
+    </table>
+
+    <table width="500" border="0" cellspacing="1" cellpadding="1" class="table">
+      <tr>
+        <td>&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td colspan="2" align="center"><strong>Combined purchase</strong></td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td align="center"><strong>R/Kwh excl</strong></td>
+        <td align="center"><strong>Units</strong></td>
+        <td align="center"><strong>Amount</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Block 1</strong></td>
+        <td align="center">{{val1}}</td>
+        <td align="center">{{b1tu}}</td>
+        <td align="center">{{b1ta}}</td>
+      </tr>
+      <tr>
+        <td><strong>Block 2</strong></td>
+        <td align="center">{{val2}}</td>
+        <td align="center">{{b2tu}}</td>
+        <td align="center">{{b2ta}}</td>
+      </tr>
+      <tr>
+        <td><strong>Block 3</strong></td>
+        <td align="center">{{val3}}</td>
+        <td align="center">{{b3tu}}</td>
+        <td align="center">{{b3ta}}</td>
+      </tr>
+      <tr>
+        <td><strong>Block 4</strong></td>
+        <td align="center">{{val4}}</td>
+        <td align="center">{{b4tu}}</td>
+        <td align="center">{{b4ta}}</td>
+      </tr>
+      <tr>
+        <td><strong>TOTALS</strong></td>
+        <td align="center">&nbsp;</td>
+        <td align="center">{{ttu}}</td>
+        <td align="center">{{tta}}</td>
+      </tr>
+    </table>
+		-->
+    <!-- Block -->
+    <div class="row">
+    <strong>Current block</strong> {{prevBlock}}
+    </div>
+    <div class="row">
+    <strong>Next block</strong> {{nextBlock}}
+	</div>
+    <div class="row">
+    <strong>Available in current block: </strong> {{unitsLeftFromAmount}} {{amountLeftInBlock}}
+    </div>
+    <div id="history">
+    History
+
+    </div>
+    <div id="purchases">
+    Purchases
+
+    </div>
+
+</div>
+	</ion-content>
+</ion-view>

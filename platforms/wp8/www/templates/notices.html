@@ -1,0 +1,18 @@
+<ion-view view-title="STLM - Notices">
+  <ion-content overflow-scroll="true">
+    <div class="card" ng-repeat="notice in notices.notices">
+      <div class="item item-divider item-dark lightDownload">
+        {{notice.notice_nr}}
+        <a  ng-show="notice.notice_nr != 'none'" class="item-icon-right" href="http://stlm.gov.za/Notices/{{notice.notice_nr}}.pdf" target="_blank">
+          <i class="icon ion-android-download"></i>
+        </a>
+      </div>
+      <div class="item item-text-wrap">
+        {{notice.description}}
+      </div>
+      <div class="item item-divider">
+        {{notice.due_date}}
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

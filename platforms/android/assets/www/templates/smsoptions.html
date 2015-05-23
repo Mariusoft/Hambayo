@@ -1,0 +1,23 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">SMS Options</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeSMS()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+      <div class="list">
+        <div class="item item-divider">
+          Receive SMS notifications on:
+        </div>
+        <ion-toggle ng-repeat="item in settingsList"
+                    ng-model="item.checked"
+                    ng-checked="item.checked">
+          {{ item.text }}
+        </ion-toggle>
+        <div class="item">
+          <pre ng-bind="settingsList | json"></pre>
+        </div>
+      </div>
+  </ion-content>
+</ion-modal-view>

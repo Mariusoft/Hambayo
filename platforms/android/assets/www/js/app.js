@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('hambayo', ['ionic', 'hambayo.controllers', 'ngResource'])
+angular.module('hambayo', ['ionic', 'hambayo.controllers', 'ngResource', 'angular.filter'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -18,6 +18,17 @@ angular.module('hambayo', ['ionic', 'hambayo.controllers', 'ngResource'])
       StatusBar.styleDefault();
     }
   });
+})
+
+.directive('autoFocus', function($timeout) {
+    return {
+        restrict: 'AC',
+        link: function(_scope, _element) {
+            $timeout(function(){
+                _element[0].focus();
+            }, 0);
+        }
+    };
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -56,6 +67,51 @@ angular.module('hambayo', ['ionic', 'hambayo.controllers', 'ngResource'])
         }
       }
     })
+    .state('app.directory', {
+      url: "/optionlist/directory",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/directory.html",
+          controller: 'DirectoryCtrl'
+        }
+      }
+    })
+    .state('app.prepaid', {
+      url: "/optionlist/prepaid",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/emeters.html",
+          controller: 'eMeterCtrl'
+        }
+      }
+    })
+    .state('app.ssereadings', {
+      url: "/optionlist/ssereadings",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/ssmeters.html",
+          controller: 'ssEreadingsCtrl'
+        }
+      }
+    })
+    .state('app.ssreadings', {
+      url: "/ssreadings/:meter_id/:address/:description/:meter_type",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/ssmeterreadings.html",
+          controller: 'ssMeterReadingsCtrl'
+        }
+      }
+    })
+    .state('app.schedule', {
+      url: "/schedule:link",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/loadsheddingschedule.html",
+          controller: 'ScheduleCtrl'
+        }
+      }
+    })
     .state('app.messages', {
       url: "/optionlist/messages",
       views: {
@@ -83,12 +139,48 @@ angular.module('hambayo', ['ionic', 'hambayo.controllers', 'ngResource'])
         }
       }
     })
+    .state('app.media', {
+      url: "/optionlist/media",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/media.html",
+          controller: 'MediaCtrl'
+        }
+      }
+    })
+    .state('app.notices', {
+      url: "/optionlist/notices",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/notices.html",
+          controller: 'NoticesCtrl'
+        }
+      }
+    })
+    .state('app.projects', {
+      url: "/optionlist/projects",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/projects.html",
+          controller: 'ProjectsCtrl'
+        }
+      }
+    })
     .state('app.accounts', {
       url: "/optionlist/accounts",
       views: {
         'menuContent': {
           templateUrl: "templates/accounts.html",
           controller: 'AccountsCtrl'
+        }
+      }
+    })
+    .state('app.emeterhistory', {
+      url: "/emeterhistory/:serialNr/:description",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/emeterhistory.html",
+          controller: 'eEeterHistoryCtrl'
         }
       }
     })

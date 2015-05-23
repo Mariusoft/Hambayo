@@ -1,0 +1,23 @@
+<ion-view view-title="STLM - Directory">
+  <ion-content overflow-scroll="true">
+    <div class="card" ng-repeat="(key, value) in directory.directory | groupBy:'name'">
+      <div class="item item-divider item-assertive">
+        {{key}}
+      </div>
+      <div class="item item-text-wrap" ng-repeat="info in value">
+        <a class="item item-icon-left item-icon-right" href="tel:{{info.contact_number}}">
+          <i class="icon ion-chatbubble-working"></i>
+            {{info.contact_number}}
+          <i class="icon ion-ios-telephone-outline"></i>
+        </a>
+      <div ng-show="info.address">
+        <a class="item item-icon-left item-icon-right" href="#">
+          <i class="icon ion-map"></i>
+            {{info.address}}
+          <i class="icon ion-ios-location-outline"></i>
+        </a>
+      </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

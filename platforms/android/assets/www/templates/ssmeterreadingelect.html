@@ -1,0 +1,33 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Add a Reading</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeMeterElect()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content overflow-scroll="true">
+    <form ng-submit="doAddReading(ssReadingData)">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Reading</span>
+          <span class="formtextinput"><input type="text" ng-model="ssReadingData.reading" name="reading" id="reading" autoFocus required></span>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Date</span>
+          <span class="formtextinput"><input type="text" ng-model="ssReadingData.date_read" placeholder="2015-05-23" name="date_read" id="date_read" required></span>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Comment</span>
+          <span class="formtextinput"><input type="text" ng-model="ssReadingData.comment" name="comment" id="comment"></span>
+        </label>
+        <label class="item">
+          <input type="hidden" ng-model="address" name="address" id="address">
+          <input type="hidden" ng-model="description" name="description" id="description">
+          <input type="hidden" ng-model="meter_type" name="meter_type" id="meter_type">
+          <input type="hidden" ng-model="meter_id" name="meter_id" id="meter_id">
+          <button class="button button-block button-balanced" type="submit">Add</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

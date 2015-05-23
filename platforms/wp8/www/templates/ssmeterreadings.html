@@ -1,0 +1,30 @@
+<ion-view view-title="STLM - Readings">
+  <ion-nav-buttons side="right">
+      <button class="button button-positive" ng-click="addreading()">
+        <i class="icon ion-plus-round"></i>
+      </button>
+      <button class="button button-clear">
+        <i>&nbsp;&nbsp;&nbsp;</i>
+      </button>
+      <button class="button button-assertive" ng-click="removereading()">
+        <i class="icon ion-minus-round"></i>
+      </button>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="true">
+    <div class="card">
+      Address: {{address}}
+      <span ng-show="description"><br />Description: {{description}}</span>
+    </div>
+    <div class="card" ng-repeat="(key, value) in readings.readings|groupBy:'months' | toArray:true">
+      <div class="item item-divider item-assertive">
+        Month: {{value[0].months}}
+      </div>
+      <div class="item item-text-wrap" ng-repeat="info in value">
+        Date read: {{info.date_read}} with reading: {{info.reading}}
+        <span ng-show="info.meter_type"><br />Meter type: {{info.meter_type}}</span>
+        <span ng-show="info.comment"><br />Comment: {{info.comment}}</span>
+
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

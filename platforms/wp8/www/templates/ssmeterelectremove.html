@@ -1,0 +1,25 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Remove Self Service Meter</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeRemoveMeterElect()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content overflow-scroll="true">
+    <form ng-submit="doRemoveSSMeter(ssmeter)">
+      <div class="list">
+        <ion-checkbox ng-repeat="meter in meters.ssmeters"
+                      ng-model="pushNotification.checked"
+                      ng-change="pushNotificationChange({{meter.id}})">
+                      {{meter.address}}<br />
+                      {{meter.description}}<br />
+                      {{meter.meter_type}}
+        </ion-checkbox>
+
+      </div>
+    </form>
+    <div class="bar bar-footer bar-assertive">
+      <div class="title">Click on the meter to be removed - cannot undo!</div>
+    </div>
+  </ion-content>
+</ion-modal-view>

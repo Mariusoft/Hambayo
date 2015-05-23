@@ -94,6 +94,15 @@ angular.module('hambayo', ['ionic', 'hambayo.controllers', 'ngResource', 'angula
         }
       }
     })
+    .state('app.ssreadings', {
+      url: "/ssreadings/:meter_id/:address/:description/:meter_type",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/ssmeterreadings.html",
+          controller: 'ssMeterReadingsCtrl'
+        }
+      }
+    })
     .state('app.schedule', {
       url: "/schedule:link",
       views: {
