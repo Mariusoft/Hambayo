@@ -8,7 +8,7 @@
   <ion-content overflow-scroll="true">
     <form>
       <div class="list">
-        <ion-checkbox ng-repeat="reading in readings.readings | orderBy:'-date_read'"
+        <ion-checkbox ng-repeat="reading in readings.readings | toArray:true | orderBy:['-date_read','-id']"
                       ng-model="pushNotification.checked"
                       ng-change="pushNotificationChange({{reading.id}})">
                       {{reading.date_read}}<br />

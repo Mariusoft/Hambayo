@@ -14,7 +14,7 @@
         </label>
         <label class="item item-input">
           <span class="input-label">Date</span>
-          <span class="formtextinput"><input type="text" ng-model="ssReadingData.date_read" placeholder="2015-05-23" name="date_read" id="date_read" required></span>
+          <span class="formtextinput"><input type="text" ng-model="ssReadingData.date_read" ng-init="ssReadingData.date_read=date_read" name="date_read" id="date_read" required></span>
         </label>
         <label class="item item-input">
           <span class="input-label">Comment</span>

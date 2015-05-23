@@ -228,8 +228,7 @@ angular.module('hambayo.controllers', [])
   // Open the login modal
   $scope.login = function() {
     $scope.modal.show();
-    $scope.loginData.username="mariusoft";
-    $scope.loginData.password="panda11";
+
   };
 
   // Open the SMS options modal
@@ -486,6 +485,22 @@ angular.module('hambayo.controllers', [])
 })
 
 .controller('ssMeterReadingsCtrl', function($scope, $ionicModal, $timeout, ssMeterReadingData, $rootScope, $ionicLoading, $stateParams) {
+
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+
+  if(dd<10) {
+      dd='0'+dd
+  }
+
+  if(mm<10) {
+      mm='0'+mm
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+
   $ionicLoading.show({
     content: 'Loading',
     animation: 'fade-in',
@@ -499,6 +514,8 @@ angular.module('hambayo.controllers', [])
   $scope.description=$stateParams.description;
   $scope.meter_type=$stateParams.meter_type;
   $scope.meter_id=$stateParams.meter_id;
+  $scope.date_read = today;
+  console.log('date',today);
 
   $ionicModal.fromTemplateUrl('templates/ssmeterreadingelect.html', {
       scope: $scope
@@ -678,6 +695,11 @@ angular.module('hambayo.controllers', [])
     maxWidth: 200,
     showDelay: 0
   });
+
+  $scope.showTender=function(url){
+    window.open(url, '_system');
+  }
+
   $scope.tenderAPI = $resource("http://www.stlm.gov.za/json/listTenders.php",
   { callback: "JSON_CALLBACK" },
   { get: { method: "GET" }});
@@ -695,6 +717,11 @@ angular.module('hambayo.controllers', [])
     maxWidth: 200,
     showDelay: 0
   });
+
+  $scope.showQuotation=function(url){
+    window.open(url, '_system');
+  }
+
   var quotationAPI = $resource("http://www.stlm.gov.za/json/listQuotations.php",
   { callback: "JSON_CALLBACK" },
   { get: { method: "GET"}});

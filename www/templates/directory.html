@@ -5,7 +5,7 @@
         {{key}}
       </div>
       <div class="item item-text-wrap" ng-repeat="info in value">
-        <a class="item item-icon-left item-icon-right" href="tel:{{info.contact_number}}">
+        <a class="item item-icon-left item-icon-right" ng-href="tel:{{info.contact_number}}">
           <i class="icon ion-chatbubble-working"></i>
             {{info.contact_number}}
           <i class="icon ion-ios-telephone-outline"></i>

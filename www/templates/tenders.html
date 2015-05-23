@@ -3,7 +3,7 @@
     <div class="card" ng-repeat="tender in tenders.tenders">
       <div class="item item-divider item-dark lightDownload">
         {{tender.tender_nr}}
-        <a ng-show="tender.tender_nr != 'none'" class="item-icon-right" href="http://stlm.gov.za/Tenders/{{tender.tender_nr}}.pdf" target="_blank">
+        <a ng-show="tender.tender_nr != 'none'" class="item-icon-right" ng-click="showTender('http://stlm.gov.za/Tenders/{{tender.document}}.pdf')">
           <i class="icon ion-android-download"></i>
         </a>
       </div>

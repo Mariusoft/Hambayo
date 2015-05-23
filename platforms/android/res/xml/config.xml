@@ -29,15 +29,18 @@
     <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
     <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
     <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
-    <name>Hambayo</name>
+    <name>STLM Basic</name>
     <description>
         STLM Mobile application for municipal information.
     </description>
     <author email="marius@msft.co.za" href="http://msft.co.za/">
-      Ionic Framework Team
+      Mariusoft
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <access launch-external="yes" origin="tel:*" />
+    <access launch-external="yes" origin="mailto:*" />
+    <access launch-external="yes" origin="http:*" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
