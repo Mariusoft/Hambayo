@@ -17,8 +17,15 @@ angular.module('hambayo.controllers', [])
   LoginData.get = function(callback) {
     $http.get('https://www.stlm-online.co.za/json/finance/accounts/login.php',{params: {username:$rootScope.u, password:$rootScope.p}})
       .success(function(data) {
-        $rootScope.uid=data.id;
-        $rootScope.stat=data.login;
+        status=data.login;
+        if(status=='auth_error'){
+          $rootScope.$broadcast('handleAuthData', status);
+          console.log('Login error',status);
+        }else{
+          $rootScope.uid=data.id;
+          $rootScope.stat=data.login;
+          console.log('Login success');
+        }
         callback(data);
       });
     };
@@ -64,6 +71,18 @@ angular.module('hambayo.controllers', [])
   var login = [];
 
   return {
+    check: function($user){
+      return $http({
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        url: 'https://www.stlm-online.co.za/json/finance/accounts/uniquelogin.php',
+        method: "POST",
+        data: $user,
+      })
+        .success(function(data){
+          status = data.status;
+          $rootScope.$broadcast('handleCheckUser', status);
+        })
+    },
     register: function($params){
       return $http({
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -185,7 +204,7 @@ angular.module('hambayo.controllers', [])
 
 })
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, LoginData, loginRegisterData, $ionicLoading) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, LoginData, loginRegisterData, $ionicLoading, $ionicPopup) {
 
 
   // Form data for the login modal
@@ -254,6 +273,20 @@ angular.module('hambayo.controllers', [])
 
   };
 
+  $scope.checkUser = function(data){
+    var checkname = data.$viewValue;
+    if(checkname.length>0){
+      $params = ({params:{
+        "user":checkname
+      }})
+      loginRegisterData.check($params);
+    }
+  };
+
+  $scope.$on('handleCheckUser', function(events, status){
+    $scope.status=status;
+  });
+
   $scope.doRegister = function(loginData){
     $params = ({params:{
       "user":loginData.username,
@@ -265,6 +298,22 @@ angular.module('hambayo.controllers', [])
     $scope.closeRegister();
   }
 
+  $scope.$on('handleAuthData', function(events, status){
+    // An alert dialog
+   var alertPopup = $ionicPopup.alert({
+     title: 'Login status',
+     template: 'Username or Password incorrect, please try again.'
+   });
+   alertPopup.then(function(res) {
+   });
+  });
+
+  $scope.helpAccount = function(){
+    var alertPopup = $ionicPopup.alert({
+      title: 'Registration help',
+      template: '<strong>Email:</strong> This will be used as your login username.<br><strong>Password:</strong> Use a secure password that you will remember. <br><strong>Account No:</strong> Your STLM account number in the top right corner of the municipal invoice.The number ends with an X.<br><strong>E-service No:</strong> On the municipal invoice, below the Totals value you will find the ACT CODE or E-Service number, use that number here.'
+    });
+  }
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
@@ -291,7 +340,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
 
   $scope.name = 'eMeterCtrl';
@@ -355,7 +405,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
 
   $scope.name = 'AccountsCtrl';
@@ -421,7 +472,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
 
   $scope.name = 'ssEreadingsCtrl';
@@ -506,7 +558,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
 
   $scope.name = 'ssMeterReadingsCtrl';
@@ -577,12 +630,13 @@ angular.module('hambayo.controllers', [])
 })
 
 .controller('OptionlistCtrl', function($scope, LoginData, InitialData, $rootScope, $state, $stateParams, $ionicLoading) {
-  $ionicLoading.show({
+    $ionicLoading.show({
     content: 'Loading',
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
 
   $scope.stat='auth_error';
@@ -639,7 +693,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
   var ppHistoryAPI = $resource("https://www.stlm-online.co.za/json/finance/accounts/last_five_elec_purchases.php?meternumber=" + $stateParams.serialNr,
   { callback: "JSON_CALLBACK" },
@@ -657,7 +712,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
 
   $scope.directoryAPI = $resource("http://www.stlm.gov.za/json/listDirectory.php",
@@ -676,7 +732,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
   $scope.scheduleAPI = $resource("http://www.stlm.gov.za/json/listSchedule.php?link=" + $stateParams.link,
   { callback: "JSON_CALLBACK" },
@@ -693,7 +750,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
 
   $scope.showTender=function(url){
@@ -715,7 +773,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
 
   $scope.showQuotation=function(url){
@@ -737,7 +796,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
   $scope.mediaAPI = $resource("http://www.stlm.gov.za/json/listMedia.php",
   { callback: "JSON_CALLBACK" },
@@ -754,7 +814,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
   $scope.noticeAPI = $resource("http://www.stlm.gov.za/json/listNotices.php",
   { callback: "JSON_CALLBACK" },
@@ -771,7 +832,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
   $scope.projectAPI = $resource("http://www.stlm.gov.za/json/listProjects.php",
   { callback: "JSON_CALLBACK" },
@@ -788,7 +850,8 @@ angular.module('hambayo.controllers', [])
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
   $scope.messageAPI = $resource("http://stlm-online.co.za/json/sms/list.php",
   { callback: "JSON_CALLBACK" },
@@ -1115,7 +1178,8 @@ totalAmountPurchase = parseFloat(prevAmountPurchase + nextAmountPurchase);
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
-    showDelay: 0
+    showDelay: 0,
+    duration: 5000
   });
   var self = this;
   $scope.accountNr=$stateParams.accountNr;

@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('hambayo', ['ionic', 'hambayo.controllers', 'ngResource', 'angular.filter'])
 
-.run(function($ionicPlatform,$rootScope) {
+.run(function($ionicPlatform, $rootScope, $ionicPopup) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -16,6 +16,18 @@ angular.module('hambayo', ['ionic', 'hambayo.controllers', 'ngResource', 'angula
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
+    }
+    if(window.Connection) {
+      if(navigator.connection.type == Connection.NONE) {
+        $ionicPopup.alert({
+          title: "Internet Not Connected",
+          okText: "Exit",
+          template: "The internet is disconnected on your device. Please connect to the internet and try again."
+        })
+        .then(function(result) {
+              ionic.Platform.exitApp();
+        });
+      }
     }
   });
 })
@@ -29,6 +41,44 @@ angular.module('hambayo', ['ionic', 'hambayo.controllers', 'ngResource', 'angula
             }, 0);
         }
     };
+})
+
+.directive('input', function($timeout) {
+  return {
+    restrict: 'E',
+    scope: {
+      'returnClose': '=',
+      'onReturn': '&',
+      'onFocus': '&',
+      'onBlur': '&'
+    },
+    link: function(scope, element, attr) {
+      element.bind('focus', function(e) {
+        if (scope.onFocus) {
+          $timeout(function() {
+            scope.onFocus();
+          });
+        }
+      });
+      element.bind('blur', function(e) {
+        if (scope.onBlur) {
+          $timeout(function() {
+            scope.onBlur();
+          });
+        }
+      });
+      element.bind('keydown', function(e) {
+        if (e.which == 13) {
+          if (scope.returnClose) element[0].blur();
+          if (scope.onReturn) {
+            $timeout(function() {
+              scope.onReturn();
+            });
+          }
+        }
+      });
+    }
+  }
 })
 
 .config(function($stateProvider, $urlRouterProvider) {

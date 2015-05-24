@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"wp-package\" value=\"InAppBrowser\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"NetworkStatus\"><param name=\"wp-package\" value=\"NetworkStatus\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -32,7 +36,7 @@
                         },
                         {
                             "xml": "<Capability Name=\"ID_CAP_NETWORKING\" />",
-                            "count": 2
+                            "count": 3
                         }
                     ]
                 }
@@ -50,6 +54,9 @@
             "PACKAGE_NAME": "{390bada0-e911-11e4-b471-91f4c71c4623}"
         },
         "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "{390bada0-e911-11e4-b471-91f4c71c4623}"
+        },
+        "org.apache.cordova.network-information": {
             "PACKAGE_NAME": "{390bada0-e911-11e4-b471-91f4c71c4623}"
         }
     },

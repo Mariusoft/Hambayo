@@ -226,4 +226,7 @@
     <ItemGroup>
         <Compile Include="Plugins\org.apache.cordova.inappbrowser\InAppBrowser.cs" />
     </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\org.apache.cordova.network-information\NetworkStatus.cs" />
+    </ItemGroup>
 </Project>
